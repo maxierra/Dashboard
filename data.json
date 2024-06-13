@@ -1,0 +1,17 @@
+{
+    "2024": {
+      "January": { "success": 100, "error": 10 },
+      "February": { "success": 120, "error": 15 },
+      "March": { "success": 130, "error": 12 },
+      "April": { "success": 140, "error": 14 },
+      "May": { "success": 150, "error": 13 },
+      "June": { "success": 160, "error": 11 },
+      "July": { "success": 170, "error": 16 },
+      "August": { "success": 180, "error": 18 },
+      "September": { "success": 190, "error": 14 },
+      "October": { "success": 200, "error": 17 },
+      "November": { "success": 210, "error": 19 },
+      "December": { "success": 220, "error": 20 }
+    }
+  }
+  
