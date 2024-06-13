@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-time Dashboard</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Otros estilos CSS -->
+  <link rel="stylesheet" href="/styles.css">
+  <!-- Otros recursos -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://bernii.github.io/gauge.js/dist/gauge.min.js"></script> <!-- Script de Gauge.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-**tu-integridad-aqui**" crossorigin="anonymous">
+</head>
+<body>
+  <!-- Incluir la barra de navegación -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#"></a>
+    <div id="gauge-container" class="ml-3">
+      <canvas id="foo" width="300" height="150"></canvas> <!-- Ajustar ancho y alto -->
+      <div id="preview-textfield" class="gauge-value"></div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <%- include('navbar') %>
+    </div>
+  </nav>
+
+  <img src="bizland.jpeg" alt="Descripción de la imagen" style="width: 250px; height: 150px; float: right; margin-top: -5px; margin-right: -10px;">
+  
+  <h1 class="text-center">Dashboard Iframe </h1> <!-- Título del dashboard -->
+
+  <div class="dashboard">
+    <div class="left-panel">
+      <div class="transaction-list">
+        <h2 id="current-date"></h2>
+        <h2>Recent Transactions</h2>
+        <ul id="transaction-list">
+          <!-- Transacciones serán agregadas dinámicamente aquí -->
+        </ul>
+      </div>
+      <div class="stats-container">
+        <h2>Transaction Stats</h2>
+        <table>
+          <tr>
+            <th>HTTP 200 OK</th>
+            <td id="http200-count">0</td>
+          </tr>
+          <tr>
+            <th>HTTP Errors</th>
+            <td id="http-errors-count">0</td>
+            <td id="http-errors-status"></td> <!-- Columna "Status" -->
+          </tr>
+          <tr>
+            <th>Emails Sent</th>
+            <td id="email-sent-count">0</td>
+          </tr>
+          <tr>
+            <th>Reprocessed Transactions</th>
+            <td id="reprocessed-count">0</td>
+          </tr>
+        </table>
+        <h2>Pending Transactions</h2>
+        <ul id="pending-list">
+          <!-- Transacciones pendientes serán agregadas dinámicamente aquí -->
+        </ul>
+      </div>
+      <div class="alert-list">
+        <h2>Email Alerts</h2>
+        <ul id="alert-list">
+          <!-- Alertas serán agregadas dinámicamente aquí -->
+        </ul>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="chart-container">
+        <canvas id="myChart" width="200" height="100"></canvas>
+      </div>
+      <div class="chart-container">
+        <canvas id="httpErrorsPieChart" width="200" height="100"></canvas>
+      </div>
+      <div class="failure-indicators">
+        <h2 class="failure-title">Failure Indicators</h2>
+        <div class="failure-cards-container">
+          <div class="failure-card f2f common-failure-card">
+            <h3><i class="fas fa-user"></i> F2F</h3>
+            <p id="f2f-error-count">0</p>
+          </div>
+          <div class="failure-card digital common-failure-card">
+            <h3><i class="fas fa-laptop"></i> Digital</h3>
+            <p id="digital-error-count">0</p>
+          </div>
+          <div class="failure-card ggpx common-failure-card">
+            <h3><i class="fas fa-globe"></i> GGPX</h3>
+            <p id="ggpx-error-count">0</p>
+          </div>
+          <div class="failure-card iframe-bizland common-failure-card">
+            <h3><i class="fas fa-tv"></i> Iframe Bizland</h3>
+            <p id="iframe-bizland-error-count">0</p>
+          </div>
+          <div class="failure-card endpoint-api-bizland common-failure-card">
+            <h3><i class="fas fa-cloud"></i> Endpoint API Bizland</h3>
+            <p id="endpoint-api-bizland-error-count">0</p>
+          </div>
+          <div class="failure-card webhook common-failure-card">
+            <h3><i class="fas fa-link"></i> Webhooks</h3>
+            <p id="webhook-error-count">0</p>
+        </div>
+        </div>
+      </div>
+      
+      <div class="incident-list">
+        <h2>Incident Reports</h2>
+        <table id="incident-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Severity</th>
+              <th class="status-column">Status</th>
+              <th>Creation Time</th> <!-- Nueva columna para la hora de creación -->
+              <th>Estimated Resolution Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Aquí se agregarán las filas de incidentes dinámicamente -->
+          </tbody>
+        </table>
+      </div>
+      
+            <!-- Incidencias serán agregadas dinámicamente aquí -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Script para la lógica del dashboard -->
+  <script src="/dashboard.js"></script>
+</body>
+</html>
